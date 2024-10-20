@@ -73,28 +73,28 @@ public:
 
     T& Front() {
         if (IsEmpty()) {
-            throw  std::underflow_error("Call to Front() on an empty vector");
+            throw std::underflow_error("Call to Front() on an empty vector");
         }
         return data_[0];
     }
 
     T& Back() {
         if (IsEmpty()) {
-            throw  std::underflow_error("Call to Back() on an empty vector");
+            throw std::underflow_error("Call to Back() on an empty vector");
         }
         return data_[size_ - 1];
     }
 
     const T& Front() const {
         if (IsEmpty()) {
-            throw  std::underflow_error("Call to Front() on an empty vector");
+            throw std::underflow_error("Call to Front() on an empty vector");
         }
         return data_[0];
     }
 
     const T& Back() const {
         if (IsEmpty()) {
-            throw  std::underflow_error("Call to Back() on an empty vector");
+            throw std::underflow_error("Call to Back() on an empty vector");
         }
         return data_[size_ - 1];
     }
@@ -114,7 +114,7 @@ public:
         return data_[index];
     }
 
-    // Modifiers 
+    // Modifiers
     void PushBack(const T& value) {
         if (size_ == capacity_) {
             size_t new_capacity = (capacity_ == 0) ? 1 : capacity_ * 2;

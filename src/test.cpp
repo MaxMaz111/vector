@@ -1,6 +1,47 @@
+#include <stdexcept>
 #define CATCH_CONFIG_MAIN
 #include "../util/catch.hpp"
 #include "vector.hpp"
+
+class MyInt {
+public:
+    MyInt() {
+    }
+
+    MyInt(int value) : value_(value), initialized_(true) {
+    }
+
+    MyInt& operator=(const MyInt& other) {
+        if (!other.initialized_) {
+            throw std::runtime_error("");
+        }
+        value_ = other.value_;
+        initialized_ = other.initialized_;
+        return *this;
+    }
+
+    const int& GetValue() const {
+        if (!initialized_) {
+            throw std::runtime_error("");
+        }
+        return value_;
+    }
+
+private:
+    int value_{};
+    bool initialized_{};
+};
+
+TEST_CASE("Vector data copy constructor throws", "[vector]") {
+    Vector<MyInt> v;
+    v.PushBack(MyInt(1));
+    v.PushBack(MyInt(2));
+    v.PushBack(MyInt(3));
+    try {
+        Vector<MyInt> v_copy(v);
+    } catch (const std::runtime_error& e) {
+    }
+}
 
 TEST_CASE("Constructing with initializer list", "[vector]") {
     Vector<int> vec{1, 2, 3};

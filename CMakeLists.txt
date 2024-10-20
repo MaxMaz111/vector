@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_BUILD_TYPE Debug)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
+
 add_executable(test_vector src/test.cpp)
 
 target_include_directories(test_vector PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/util)
