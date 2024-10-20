@@ -1,10 +1,23 @@
+#include <initializer_list>
 #include <stdexcept>
 
 template <typename T>
 class Vector {
 public:
     // Constructors
-    Vector() : data_(nullptr), size_(0), capacity_(0) {
+    Vector() {
+    }
+
+    Vector(size_t sz, const T& val = T()) {
+        for (size_t i = 0; i < sz; ++i) {
+            PushBack(val);
+        }
+    }
+
+    Vector(std::initializer_list<T>&& list) {
+        for (const T& val : list) {
+            PushBack(val);
+        }
     }
 
     Vector(const Vector& other) {
@@ -17,14 +30,12 @@ public:
     }
 
     Vector(Vector&& other) {
-        if (this != &other) {
-            data_ = other.data_;
-            size_ = other.size_;
-            capacity_ = other.capacity_;
-            other.data_ = nullptr;
-            other.size_ = 0;
-            other.capacity_ = 0;
-        }
+        data_ = other.data_;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
     }
 
     // operator=
@@ -145,7 +156,7 @@ private:
         capacity_ = new_capacity;
     }
 
-    T* data_;
-    size_t size_;
-    size_t capacity_;
+    T* data_{};
+    size_t size_{};
+    size_t capacity_{};
 };

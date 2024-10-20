@@ -2,6 +2,31 @@
 #include "../util/catch.hpp"
 #include "vector.hpp"
 
+TEST_CASE("Constructing with initializer list", "[vector]") {
+    Vector<int> vec{1, 2, 3};
+    vec = std::move(vec);
+    REQUIRE(vec[0] == 1);
+    REQUIRE(vec[1] == 2);
+    REQUIRE(vec[2] == 3);
+    REQUIRE(vec.GetSize() == 3);
+}
+
+TEST_CASE("Constructing with just size", "[vector]") {
+    Vector<int> vec(3);
+    REQUIRE(vec[0] == 0);
+    REQUIRE(vec[1] == 0);
+    REQUIRE(vec[2] == 0);
+    REQUIRE(vec.GetSize() == 3);
+    Vector<int> vec1(3, 1);
+    REQUIRE(vec1[0] == 1);
+    REQUIRE(vec1[1] == 1);
+    REQUIRE(vec1[2] == 1);
+    vec1 = std::move(vec);
+    REQUIRE(vec1[0] == 0);
+    REQUIRE(vec1[1] == 0);
+    REQUIRE(vec1[2] == 0);
+}
+
 TEST_CASE("Vector is initially empty", "[vector]") {
     Vector<int> vec;
 
